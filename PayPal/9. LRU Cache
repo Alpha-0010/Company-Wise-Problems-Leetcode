@@ -1,4 +1,4 @@
-// For a detailed solution refer to SWE video on LRU Cache.
+// For a detailed exaplanation refer to SWE video on LRU Cache.
 
 class LRUCache {
 public:
