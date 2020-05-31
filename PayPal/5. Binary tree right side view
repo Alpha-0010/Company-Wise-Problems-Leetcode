@@ -1,0 +1,25 @@
+// DSF Solution.
+// Here the idea is we will traverse in node,right,left fashion and we will maintain 2 values level and max_level. While calling on the right and left children we will increase the level by 1. And when level becomes greater than the max_level then update max_level and push that node into our output array.
+
+class Solution {
+public:
+    void Helper(TreeNode* root,vector<int> &output,int level,int& max_level){
+        if(root==NULL){
+            return;
+        }
+        if(level>max_level){
+            max_level=level;
+            output.push_back(root->val);
+        }
+        Helper(root->right,output,level+1, max_level);
+        Helper(root->left,output,level+1, max_level);
+        
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        int max_level=-1;
+        vector<int>output;
+        int level=0;
+        Helper(root,output,level,max_level);
+        return output;
+    }
+}; 
