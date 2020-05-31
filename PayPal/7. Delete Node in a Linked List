@@ -1,0 +1,9 @@
+// Problem is not clear(If you have enough time and don't know where to invest it please give this problem a chance it won't disappoint you).
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        node->val=node->next->val;
+        node->next=node->next->next;
+    }
+};
