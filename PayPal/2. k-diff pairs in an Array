@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        int count=0;
+        int i=0,j=1;
+        while(i<n and j<n){
+            if(i==j or k+nums[i]>nums[j]){
+                j++;
+            }else if(k+nums[i]<nums[j]){
+                i++;
+            }else{
+                i++;
+                count++;
+                while(i<n and nums[i]==nums[i-1]){
+                    i++;
+                }
+                j=max(i+1,j+1);
+            }
+        }
+        return count;
+    }
+};
+
+// Here we have used 2-pointer technique. Fix the 2 pointers i and j at positions 0 & 1 respectively. Run a loop till they cross the size of the array. Since we have sorted the array we will only check for k+nums[i] and num[j] not nums[i]-k and nums[j]. 
