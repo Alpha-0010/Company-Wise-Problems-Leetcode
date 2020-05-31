@@ -1,0 +1,32 @@
+// Reference with code and comments: 
+// https://leetcode.com/problems/reverse-nodes-in-k-group/discuss/11423/Short-but-recursive-Java-code-with-comments
+// Refer to the top most comment of the reference.
+
+// In my words, the recursive approach is: 1) test weather we have more than k node left, if less then k node left we just return head. 2) Reverse k nodes. Here p is the head of the nodes from k+1 to n. So if we wish to reverse the list of k nodes p will become our prev node and we will finally return it. Consider head as the curr node, n as to hold the next node and p is for holding the prev. node. Then reverse the list from 0 to k.
+
+
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode* curr=head;
+        int count=0;
+        while(count<k){
+            if(curr==NULL){
+                return head;
+            }
+            curr=curr->next;
+            count++;
+        }
+        ListNode* p=reverseKGroup(curr,k);
+        ListNode* n=head->next;
+        ListNode* c=head;
+        while(count>0){
+            n=c->next;
+            c->next=p;
+            p=c;
+            c=n;
+            count--;
+        }
+        return p;
+    }
+};
