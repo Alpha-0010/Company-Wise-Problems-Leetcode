@@ -1,0 +1,86 @@
+// Classic Example of Topological sort.
+// Have done using both DFS and BFS.
+
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        unordered_map<int,vector<int>>edges;
+        for(int i=0;i<prerequisites.size();i++){
+            int x=prerequisites[i][0];
+            int y=prerequisites[i][1];
+            edges[y].push_back(x);
+        }
+        // Now we have made an adjacency list of the given graph.
+        // Now to check if it is possible or not we can use cycle detection algorithm for             // detection algorithm for directed graphs.If there is a cycle then return false          //  and if cycle is not present return true.
+        int n=numCourses;
+        bool* visited=new bool[n];
+        for(int i=0;i<n;i++){
+            visited[i]=false;
+        }
+        // BFS cycle detection or Khan's algorithm.
+        
+        int indegree[n];
+        for(int i=0;i<n;i++){
+            indegree[i]=0;
+        }
+        // Update the indegrees of the nodes.
+        for(auto it : edges){
+            int x=it.first;
+            for(int y : it.second){
+                indegree[y]++;
+            }
+        }
+        
+        // Now push the nodes with degree 0 into the queue.
+        queue<int>q;
+        for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                q.push(i);
+            }
+        }
+        // Now iterate over the queue get the children of the elements of the queue if the 
+        // indegree of the children becomes 0 then push it into the queue.
+        vector<int>output;
+        while(q.size()!=0){
+            int elem=q.front();
+            q.pop();
+            output.push_back(elem);
+            for(int x : edges[elem]){
+                indegree[x]--;
+                if(indegree[x]==0){
+                    q.push(x);
+                }
+            }
+        }
+        if(output.size()==n){
+            return true;
+        }
+        return false;
+        // unordered_set<int>s;
+        // for(int i=0;i<n;i++){
+        //     s.clear();
+        //     if(visited[i]==false and dfs(edges,i,visited,s)==true){
+        //         return false;
+        //     }
+        // }
+        // return true;
+    }
+    // DFS cycle detection algo.
+    bool dfs(unordered_map<int,vector<int>> edges,int src,bool* visited,unordered_set<int> s){
+        visited[src]=true;
+        s.insert(src);
+        
+        for(int elem : edges[src]){
+            if(visited[elem]==true and s.find(elem)!=s.end()){
+                return true;
+            }else if(visited[elem]==false){
+                bool ans=dfs(edges,elem,visited,s);
+                if(ans==true){
+                    return true;
+                }
+            }
+        }
+        s.erase(src);
+        return false;
+    }
+};
