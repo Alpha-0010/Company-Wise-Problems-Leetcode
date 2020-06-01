@@ -11,13 +11,13 @@ public:
             edges[y].push_back(x);
         }
         // Now we have made an adjacency list of the given graph.
-        // Now to check if it is possible or not we can use cycle detection algorithm for             // detection algorithm for directed graphs.If there is a cycle then return false          //  and if cycle is not present return true.
+        // Now to check if a cylcle is present in the graph or not using the cycle detection algorithm for directed graphs.If there is a cycle then return false else return true.
         int n=numCourses;
         bool* visited=new bool[n];
         for(int i=0;i<n;i++){
             visited[i]=false;
         }
-        // BFS cycle detection or Khan's algorithm.
+        // BFS cycle detection or Kahn's algorithm.
         
         int indegree[n];
         for(int i=0;i<n;i++){
@@ -38,7 +38,7 @@ public:
                 q.push(i);
             }
         }
-        // Now iterate over the queue get the children of the elements of the queue if the 
+        // Now iterate over the queue get the children of the elements of the queue. If the 
         // indegree of the children becomes 0 then push it into the queue.
         vector<int>output;
         while(q.size()!=0){
