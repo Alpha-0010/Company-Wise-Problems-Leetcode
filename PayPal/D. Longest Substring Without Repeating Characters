@@ -1,0 +1,26 @@
+// Classic Sliding window problem.
+// Maintain an integer start to mark the start of the window and traverse through the string from 0 to length of the string. Grow the window until the freq. of curr. s[i]<=1, when it becomes greater than 1 then shrink the window by moving start pointer forward and while moving decrease the freq. of mp[s[start]] until mp[s[i]]<=1.
+
+ 
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char,int>mp;
+        int maxi=0;
+        int  n=s.length();
+        int start=0;
+        for(int i=0;i<n;i++){
+            mp[s[i]]++;
+            while(mp[s[i]]>1){
+                mp[s[start]]--;
+                start++;
+            }   
+            int len=i-start+1;
+            maxi=max(maxi,len);
+        }
+        int len=(n-1)-start+1;
+        maxi=max(maxi,len);
+        return maxi;
+    }
+};
