@@ -1,0 +1,36 @@
+// Here we will use 3 pointers p,c,n. Run a loop till c is not NULL. If c->val=value then see if p is NULL or not if p in NULL then make head=n and delete c and move c to n. If is not NULL then make p->next=n and delete c and move c to n. If c->val!=value then move p and c. p=c & c=n. 
+
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        if(head==NULL){
+            return head;
+        }
+        if(head->next==NULL and head->val==val){
+            return NULL;
+        }
+        if(head->next==NULL and head->val!=val){
+            return head;
+        }
+        ListNode* c=head;
+        ListNode* p=NULL;
+        ListNode* n=head->next;
+        while(c!=NULL){
+            n=c->next;
+            if(c->val==val){
+                if(p!=NULL){
+                    p->next=n;
+                    delete c;
+                }else{
+                    p=NULL;
+                    head=n;
+                    delete c;
+                }
+            }else{
+                p=c;
+            }
+            c=n;
+        }
+        return head;
+    }
+};
