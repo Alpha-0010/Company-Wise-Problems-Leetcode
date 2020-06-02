@@ -1,0 +1,31 @@
+// Can use stack to match the balanced parantheses.
+
+class Solution {
+public:
+    bool isValid(string s) {
+        int n=s.length();
+        if(n==0){
+            return true;
+        }
+        stack<char>st;
+        for(int i=0;i<n;i++){
+            if(s[i]=='(' or s[i]=='{' or s[i]=='['){
+                st.push(s[i]);
+            }else if( (s[i]==')' or s[i]=='}' or s[i]==']') and st.size()==0 ){
+                return false;
+            }else if(s[i]==')' and st.top()=='('){
+                st.pop();
+            }else if(s[i]=='}' and st.top()=='{'){
+                st.pop();
+            }else if(s[i]==']' and st.top()=='['){
+                st.pop();
+            }else{
+                return false;
+            }
+        }
+        if(st.size()!=0){
+            return false;
+        }
+        return true;
+    }
+};
