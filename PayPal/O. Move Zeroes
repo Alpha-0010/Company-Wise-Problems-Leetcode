@@ -1,0 +1,19 @@
+// A very useful logic which can be used in many problems.
+// Traverse over the array, maintain a count(index) to keep a check on the number of non-zero elements. If the element is not 0 then make nums[index]=nums[i] and move inc. index. And from index to n make nums[i]=0.
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n=nums.size();
+        int index=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]!=0){
+                nums[index]=nums[i];
+                index++;
+            }
+        }
+        for(int i=index;i<n;i++){
+            nums[i]=0;
+        }
+    }
+};
