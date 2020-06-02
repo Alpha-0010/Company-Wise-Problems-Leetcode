@@ -1,0 +1,57 @@
+// Backtracking Solution.
+// We can maintain a used boolean array to mark the elements as true. Before visiting an element mark it true and push it into the current vector and call on the Helper function for furthur operations. After the function call again mark the element false and remove that element from the current vector. 
+
+class Solution {
+public:
+    void Helper(vector<vector<int>> &output,vector<int> nums,vector<int> current,bool* used){
+        if(current.size()==nums.size()){
+            output.push_back(current);
+            return;
+        }
+        for(int i=0;i<nums.size();i++){
+            if(used[i]==false){
+                current.push_back(nums[i]);
+                used[i]=true;
+                Helper(output,nums,current,used);
+                current.pop_back();
+                used[i]=false;
+            }
+        }
+        
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> output;
+        vector<int> current;
+        int n=nums.size();
+        bool used[n];
+        Helper(output,nums,current,used);
+        return output;
+    }
+};
+
+// Solution:2
+// This approach is explained in Algo. Expert, it works on the concept of swapping and here we donot use an extra curr. array. And moreover we traverse from the curr. index till the size of the array unlike the previous solution where we traversed over the whole array again and again.
+
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n=nums.size();
+        vector<vector<int>> output;
+        if(n==0){
+            return output;
+        }
+        Helper(nums,output,0);
+        return output;
+    }
+    void Helper(vector<int> nums,vector<vector<int>>& output,int index){
+        if(index==nums.size()-1){
+            output.push_back(nums);
+            return;
+        }
+        for(int i=index;i<nums.size();i++){
+            swap(nums[i],nums[index]);
+            Helper(nums,output,index+1);
+            swap(nums[i],nums[index]);
+        }
+    }
+};
