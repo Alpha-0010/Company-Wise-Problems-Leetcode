@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        // Greedy- O(n)time and O(1) space.
+        int LastGoodIndex=nums.size()-1;
+        for(int i=nums.size()-1;i>=0;i--){
+            if(i+nums[i] >= LastGoodIndex){
+                LastGoodIndex=i;
+            }
+        }
+        if(LastGoodIndex==0){
+            return true;
+        }
+        return false;
+        
+        // Backtraking.
+    //     int n=nums.size();
+    //     if(n==0){
+    //         return false;
+    //     }
+    //     if(n==1){
+    //         return true;
+    //     }
+    //     bool ans=jump(nums,0,n);
+    //     return ans;
+    // }
+    // bool jump(vector<int> nums,int index,int n){
+    //     if(index>=n){
+    //         return false;
+    //     }
+    //     if(index==n-1){
+    //         return true;
+    //     }
+    //     for(int i=1;i<=nums[index];i++){
+    //         bool s1=jump(nums,index+i,n);
+    //         if(s1==true){
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    }
+};
