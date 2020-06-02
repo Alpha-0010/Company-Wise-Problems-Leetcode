@@ -1,0 +1,55 @@
+// To solve this problem we will follow the following steps:
+1) Find the pivot element from where the deviation occurs.(Binary Search)
+2) After finding the pivot element make left=pivot and right=n-1. 
+3) Check of the given target lies in the range[pivot,n-1] or [0,pivot-1].
+4) Whereever the target is present use binary search there and if it present there return its index and if it is not present then return -1.
+
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int n=nums.size();
+        if(n==0){
+            return -1;
+        }
+        if(n==1 and nums[0]==target){
+            return 0;
+        }
+        int left=0,right=n-1;
+        int pivot;
+        while(left<=right){
+            long mid=left+(right-left)/2;
+            if(mid==0){
+                left=mid+1;
+                continue;
+            }
+            if(nums[mid-1]>nums[mid]){
+                pivot=mid;
+                break;
+            }else if(nums[mid]>nums[right] and nums[mid]>=nums[left]){
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+        left=pivot,right=n-1;
+        if(nums[left]<=target and target<=nums[right]){
+            left=pivot;
+            right=n-1;
+        }else{
+            right=left-1;
+            left=0;
+        }
+        while(left<=right){
+            long mid=left+(right-left)/2;
+            if(nums[mid]==target){
+                return mid;
+            }else if(nums[mid]>target){
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return -1;
+    }
+};
