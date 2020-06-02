@@ -1,0 +1,57 @@
+// Famous Interview Problem.
+// Have solved this problem using BFS approach. Maintain a visited array to mark (i,j) cell visited or not visisted.
+If we encounter grid[i][j]=1 and that cell is not visited then inc. the count by 1 and call on the bfs function.
+The BFS func. travels in all 4 direcions and if there is a cell such that grid[i][j]=1 and it has not been been 
+visited then push it into the queue and mark it visited.
+
+
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int rows=grid.size();
+        if(rows==0){
+            return rows;
+        }
+        int cols=grid[0].size();
+        queue<pair<int,int>>q;
+        bool** visited=new bool*[rows];
+        for(int i=0;i<rows;i++){
+            visited[i]=new bool[cols];
+        }
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                visited[i][j]=false;
+            }
+        }
+        int count=0;
+        // Traverse over the grid and call bfs on the cells which are land and has not been 
+        // visited yet.
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(visited[i][j]==false and grid[i][j]=='1'){
+                    count++;
+                    bfs(q,i,j,visited,grid);
+                }
+            }
+        }
+        return count;
+    }
+    void bfs(queue<pair<int,int>>& q,int x,int y,bool** visited,vector<vector<char>>& grid){
+        visited[x][y]=true;
+        q.push({x,y});
+        int dir[4][2]={{1,0},{0,1},{-1,0},{0,-1}};
+        while(q.size()!=0){
+            auto elem=q.front();
+            q.pop();
+            for(int i=0;i<4;i++){
+                int x1=elem.first+dir[i][0];
+                int y1=elem.second+dir[i][1];
+                if(x1<0 or y1<0 or x1>=grid.size() or y1>=grid[0].size() or visited[x1][y1]==true or grid[x1][y1]=='0'){
+                    continue;
+                }
+                visited[x1][y1]=true;
+                q.push({x1,y1});
+            }
+        }
+    }
+};
