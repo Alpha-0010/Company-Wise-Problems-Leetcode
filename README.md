@@ -1,1 +1,1 @@
-# Company-Wise-Problems-Leetcode(C++)
+# Company-Wise-Problems-Leetcode
