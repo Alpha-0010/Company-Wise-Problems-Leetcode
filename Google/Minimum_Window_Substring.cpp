@@ -22,9 +22,7 @@ public:
             // Now if all the characters of pat are present in str we will shrink.
             if(count==len2){
                 while(hash_str[s[start]]>hash_pat[s[start]] or hash_pat[s[start]]==0 ){
-                    if(hash_str[s[start]]>hash_pat[s[start]]){
-                        hash_str[s[start]]-=1;
-                    }
+                    hash_str[s[start]]-=1;
                     start+=1;
                 }
                 int window_len=i-start+1;
